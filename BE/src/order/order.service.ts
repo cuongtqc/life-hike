@@ -38,7 +38,7 @@ export class OrderService {
         productId: book.productId,
         username: data.username,
         phone: data.phone,
-        status: OrderStatus.PENDING,
+        status: OrderStatus.DONE,
         quantity: 1,
       });
       await order.save();
@@ -48,18 +48,6 @@ export class OrderService {
         status: 'failed',
         data: null,
       };
-    }
-  }
-
-  async paymentReceived(data: any) {
-    console.log('@== data', data);
-    switch (data.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntent = data.data.object;
-        console.log('PaymentIntent was successful!', paymentIntent);
-        break;
-      default:
-        console.log(`Unhandled event type ${data.type}`);
     }
   }
 }
