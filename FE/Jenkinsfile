@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // This checks out the source code from your version control system
+                // Make sure you have configured your SCM (e.g., Git) in Jenkins settings
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // This installs Node.js dependencies
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // This builds the Next.js app
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Add deployment steps here, like copying files to a server
+                // or pushing to a deployment platform
+                echo 'Deploying...'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build successful!'
+
+            // Add additional actions to perform on successful build
+        }
+
+        failure {
+            echo 'Build failed :('
+
+            // Add additional actions to perform on failed build
+        }
+    }
+}
